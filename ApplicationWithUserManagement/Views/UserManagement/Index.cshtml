@@ -1,0 +1,70 @@
+﻿@using SoniReports.DataAccessLayer
+@model SoniReports.ViewModels.UserManagementViewModel
+@{
+    ViewBag.Title = "Administrér brugere";
+}
+<h2>@ViewBag.Title.</h2>
+
+<div>
+    <table id="users" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Brugernavn</th>
+                <th>Email bekræftet</th>
+                <th>Aktivering</th>
+                <th>Roller</th>
+                <th>Gruppe</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/DataTable")
+    @Styles.Render("~/bundles/css/DataTable")
+    @Styles.Render("~/bundles/css/jqueryui")
+    <script src="~/Scripts/Views/UserManagement.Index.js"></script>
+
+    @if (Model.ConfirmActivtionOfUser != null)
+    {@:
+        <script>
+            $(document).ready(function () {
+                activateUser('@Model.ConfirmActivtionOfUser');
+            });
+        </script>
+    }
+}
+
+<div>
+    <a id="lnkCreateUser" class="btn btn-default" href="#" role="button">Tilføj bruger</a>
+    <a id="lnkEditUser" class="btn btn-default" href="#" role="button">Redigér bruger</a>
+    @{  if (User.IsInRole(SoniRoles.SuperUser))
+        {
+            <a id="lnkAssignRoles" class="btn btn-default" href="#" role="button">Tildel roller</a>
+            <a id="lnkSetPassword" class="btn btn-default" href="#" role="button">Skift password</a>
+        }
+}
+    <a id="lnkAssignGroups" class="btn btn-default" href="#" role="button">Tildel gruppe</a>
+    <a id="lnkDeleteUser" class="btn btn-default" href="#" role="button">Slet bruger</a>
+    @Html.ActionLink("Se aktivitetslog", "ViewActivityLog", "UserManagement", new { @class = "btn btn-default" })
+</div>
+
+<div id="dialog-confirm-activate" style="display: none">
+</div>
+
+<div id="dialog-confirm-delete" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        Er du sikker på, at denne bruger skal slettes?
+    </p>
+</div>
+<div id="dialog-edit" style="display: none">
+</div>
+<div id="dialog-set-password" style="display: none">
+</div>
+<div id="dialog-roles" style="display: none">
+</div>
+<div id="dialog-groups" style="display: none">
+</div>

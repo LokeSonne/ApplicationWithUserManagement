@@ -1,0 +1,67 @@
+﻿@model SoniReports.ViewModels.AssignGroupsViewModel
+@using SoniReports.Tools
+<div id="groupsEditor">    
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.UserId)
+
+        <div class="form-horizontal">
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9 control-label">
+                    @Html.DisplayFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            
+                <div class="form-group">
+                    
+                        @{ for (var ix = 0; ix < Model.UserGroups.Count; ix++)
+                         {
+                            <div class="form-group">
+                                <div class="col-md-offset-1 control-label col-md-4">
+                                    @Html.HiddenFor(model => model.UserGroups[ix].GroupId)
+                                    @Html.DisplayFor(model => model.UserGroups[ix].GroupName)
+                                    @Html.HiddenFor(model => model.UserGroups[ix].GroupName)
+                                </div>
+                                   <div class="col-md-4">
+                                        <!-- <AT>Html.CheckBoxFor(model => model.UserGroups[ix].Assigned, new { <AT>class = "form-control" }) -->
+                                        @Html.RadioButtonFor(model => model.SingleSelectedGroup, Model.UserGroups[ix].GroupId)
+                                    </div>
+                                </div>
+                         }
+                        }
+
+                    <div class="form-group">  
+                        <div class="col-md-offset-1 control-label col-md-4">
+                            (Ingen gruppe)
+                        </div>
+                        <div class="col-md-4">
+                            @Html.RadioButtonFor(model => model.SingleSelectedGroup, "")
+                      </div>
+                    </div>
+
+                </div>
+                <div class="col-md-offset-4 col-md-6">
+                    <a id="lnkSave" class="btn btn-default" href="#" role="button">Gem</a>
+                    <a id="lnkCancel" class="btn btn-default" href="#" role="button">Annullér</a>
+                </div>
+                <div id="validations" class="col-md-offset-2 col-md-10">
+                    @{if (Model.Result != null)
+                    {
+                        foreach (var error in Model.Result.Errors)
+                        {
+                            @error
+                            <br />
+                        }
+                    }
+                    }
+                </div>
+
+</div>
+}
+    
+</div>    
+<script src="~/Scripts/Views/UserManagement.AssignGroups.js"></script>
+@Scripts.Render("~/bundles/jqueryval")

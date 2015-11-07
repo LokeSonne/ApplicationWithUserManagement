@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Administrér brugergrupper";
+}
+<h2>@ViewBag.Title.</h2>
+
+<div>
+    <table id="userGroups" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Navn</th>
+                <th>Aktiv</th>
+                <th>Tilknyttede brugere</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/DataTable")
+    @Styles.Render("~/bundles/css/DataTable")
+    @Styles.Render("~/bundles/css/jqueryui")
+    <script src="~/Scripts/Views/UserManagement.UserGroups.js"></script>
+}
+
+<div>
+    <a id="lnkCreateUserGroup" class="btn btn-default" href="#" role="button">Tilføj gruppe</a>
+    <a id="lnkEditUserGroup" class="btn btn-default" href="#" role="button">Redigér gruppe</a>
+    <a id="lnkDeleteUserGroup" class="btn btn-default" href="#" role="button">Slet gruppe</a>
+    @Html.ActionLink("Se historik", "AssociationHistory", "UserGroupManagement", new { @class = "btn btn-default" })
+</div>
+
+
+<div id="dialog-confirm-delete" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        Er du sikker på, at denne brugergruppe skal slettes?
+    </p>
+</div>
+<div id="dialog-edit" style="display: none">
+</div>

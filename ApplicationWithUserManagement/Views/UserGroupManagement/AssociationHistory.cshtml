@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Administrér brugergrupper";
+}
+<h2>@ViewBag.Title.</h2>
+
+<div>
+    <table id="associationHistory" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Bruger</th>
+                <th>Fra</th>
+                <th>Til</th>
+                <th>Gruppe</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/DataTable")
+    @Styles.Render("~/bundles/css/DataTable")
+    @Styles.Render("~/bundles/css/jqueryui")
+    <script src="~/Scripts/Views/UserManagement.UserGroupAssociationHistory.js"></script>
+}
